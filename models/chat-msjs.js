@@ -23,9 +23,9 @@ class ChatMsjs {
     }
 
     // Metodo para enviar los mensajes, necesito el uid de la persona que esta enviando el msj, name, y el mensaje propiamente
-    sendMsg(uid, name, msg) {
+    sendMsg(uid, name, msj) {
         this.mesagges.unshift(
-            new Msg(uid, name, msg)
+            new Msg(uid, name, msj)
         )
     }
 

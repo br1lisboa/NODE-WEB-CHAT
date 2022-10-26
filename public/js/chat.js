@@ -69,8 +69,8 @@ const socketConect = async () => {
 
     // ESCUCHAS NECESARIAS
     // Recibir mensajes
-    socket.on('recibir-mensajes', () => {
-        //TODO:
+    socket.on('recibir-mensajes', (payload) => {
+        showMsjs(payload)
     })
 
     // Escuchar usarios activos, cuando se conectan
@@ -104,6 +104,57 @@ const showUser = (users = []) => {
     ulUsers.innerHTML = usersHtml
 
 }
+
+const showMsjs = (msjs = []) => {
+
+    let msjsHtml = ''
+
+    msjs.forEach(({ msg, name }) => {
+
+        msjsHtml += `
+        
+        <li>
+            <p>
+                <span class="text-primary"> ${name} </span>
+                <span">${msg}</span>
+            </p>
+        </li>
+        
+        `
+
+
+    })
+
+    ulMsg.innerHTML = msjsHtml
+
+}
+
+
+// fn para el chat, con tecla enter
+txtMsg.addEventListener('keyup', e => {
+
+    //console.log(e.keyCode)
+    const msj = txtMsg.value
+    //console.log(msj)
+    const uid = txtUid.value
+
+    if (e.keyCode !== 13) {
+        //console.log('mmm')
+        return
+    }
+
+    if (msj.length === 0) {
+        //console.log('kkk')
+        return
+    }
+
+    // Una vez que tenemos el msj validado (agregar segun gustos) necesitamos emitir este msj al controlador
+    //console.log(msj)
+    socket.emit('enviar-mensaje', { msj, uid })
+    //console.log(msj)
+    txtMsg.value = ''
+
+})
 
 // Creo fn main
 const main = async () => {

@@ -21,11 +21,21 @@ const socketController = async (socket = new Socket(), io) => {
     // 1- agregar al objeto user connect
     chatMsjs.connectUser(user)
     io.emit('usuarios-activos', chatMsjs.usersArr)
+    socket.emit('recibir-mensajes', chatMsjs.last10)
 
     // 2- limpiar cuando alguien se desconecta
     socket.on('disconnect', () => {
         chatMsjs.disconnectUser(user.id)
         io.emit('usuarios-activos', chatMsjs.usersArr)
+    })
+
+    // 3- Escuchando el evento enviar-msj
+    socket.on('enviar-mensaje', ({ uid, msj }) => {
+        //console.log(msj)
+        //console.log(user.id, user.name, msj)
+        chatMsjs.sendMsg(user.id, user.name, msj)
+        console.log(chatMsjs.last10)
+        io.emit('recibir-mensajes', chatMsjs.last10)
     })
 
 }
