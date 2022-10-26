@@ -75,7 +75,7 @@ const socketConect = async () => {
 
     // Escuchar usarios activos, cuando se conectan
     socket.on('usuarios-activos', (payload) => {
-        console.log(payload)
+        showUser(payload)
     })
 
     // Recibir mensajes privados
@@ -84,6 +84,26 @@ const socketConect = async () => {
     })
 }
 
+
+const showUser = (users = []) => {
+
+    let usersHtml = ''
+    users.forEach(({ name, uid }) => {
+        usersHtml += `
+        
+        <li>
+            <p>
+                <h5 class="text-success"> ${name} </h5>
+                <span class="fs-6 text-muted">${uid}</span>
+            </p>
+        </li>
+        
+        `
+    })
+
+    ulUsers.innerHTML = usersHtml
+
+}
 
 // Creo fn main
 const main = async () => {
