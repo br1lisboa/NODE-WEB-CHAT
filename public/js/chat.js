@@ -6,6 +6,15 @@ const url = (window.location.hostname.includes('localhost'))
 let user = null
 let socket = null
 
+
+// REFERENCIAS HTML
+const txtUid = document.querySelector('#txtUid')
+const txtMsg = document.querySelector('#txtMsg')
+const ulUsers = document.querySelector('#ulUsers')
+const ulMsg = document.querySelector('#ulMsg')
+const btnOut = document.querySelector('#btnOut')
+
+
 // fn para validar JWT DEL LOCALSTORAGE
 const validateJWT = async () => {
 
@@ -41,7 +50,7 @@ const validateJWT = async () => {
 const socketConect = async () => {
 
     // Aca puedo mandarle informacion a la conecxion socket por params
-    const socket = io({
+    socket = io({
 
         'extraHeaders': {
             'x-token': localStorage.getItem('token') // >> Que yo se que ya esta validado por que sino no pasaria por el validateJWT
@@ -49,6 +58,30 @@ const socketConect = async () => {
 
     })
 
+    // Esto es practicamente sincrono, por lo que puedo crear los eventos cuando este socket se dispare
+    socket.on('connect', () => {
+        console.log('Sockets online')
+    })
+
+    socket.on('disconnect', () => {
+        console.log('Sockets offline')
+    })
+
+    // ESCUCHAS NECESARIAS
+    // Recibir mensajes
+    socket.on('recibir-mensajes', ()=>{
+        //TODO:
+    })
+    
+    // Escuchar usarios activos, cuando se conectan
+    socket.on('usuarios-activos', ()=>{
+        //TODO:
+    })
+
+    // Recibir mensajes privados
+    socket.on('mensaje-privado', ()=>{
+        //TODO:
+    })
 }
 
 
