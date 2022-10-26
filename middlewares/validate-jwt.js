@@ -32,7 +32,7 @@ const validateJWT = async (req = request, res = response, next) => {
         }
 
         req.userAuth = userAuth
-        console.log(req.userAuth)
+        //console.log(req.userAuth)
 
         next()
 

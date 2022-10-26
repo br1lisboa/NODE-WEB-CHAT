@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const { User } = require('../models')
 
 // Como el paquete JWT no funciona en base a promesas, debemos generarla automaticamente.
 // Generamos la fn y le colocamos un return nw Promises, con su respectivo resolve and reject, para usar await en la fn del controlador.
@@ -22,6 +23,38 @@ const generateJWT = (uid = '') => {
     })
 }
 
+const checkJWT = async (token = '') => {
+
+    try {
+
+        // Comprobar si viene un token
+        if (token.length < 10) {
+            return null
+        }
+
+        // Comprobar si el token se puede desencriptar, si da err, caera en el catch
+        const { uid } = jwt.verify(token, process.env.SECRETORPRIVATEKEY)
+        // Importamos nuestro modelo de User, y buscamos la coincidencia con nuestro uid desencriptado del token del localS
+        const user = await User.findById(uid)
+
+        if (user) {
+            if (user.state) {
+                return user
+            } else {
+                return null
+            }
+        } else {
+            return null
+        }
+
+
+    } catch (error) {
+        return null
+    }
+
+}
+
 module.exports = {
-    generateJWT
+    generateJWT,
+    checkJWT
 }
