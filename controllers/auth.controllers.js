@@ -99,7 +99,23 @@ const googleSingIn = async (req, res = response) => {
     }
 }
 
+const renewToken = async (req, res = response) => {
+
+    // El userAuth viene de nuestro middleware validate-JWT que nos da el userAuth por params
+    const { userAuth } = req
+
+    // Renovamos el JWT
+    const token = await generateJWT(userAuth.id)
+
+    res.json({
+        userAuth,
+        token
+    })
+
+}
+
 module.exports = {
     loginController,
-    googleSingIn
+    googleSingIn,
+    renewToken
 }
