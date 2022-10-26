@@ -18,10 +18,14 @@ const socketController = async (socket = new Socket(), io) => {
     }
 
     // Pasada la validacion, debemos avisar a todos que un usuario se conecto
+
     // 1- agregar al objeto user connect
     chatMsjs.connectUser(user)
     io.emit('usuarios-activos', chatMsjs.usersArr)
     socket.emit('recibir-mensajes', chatMsjs.last10)
+
+    // 1a- Conectar a una sala especial
+    socket.join(user.id) //> a partir de ahora todos tendran 3 salas, la globa, la de socket.id, y la de user.id
 
     // 2- limpiar cuando alguien se desconecta
     socket.on('disconnect', () => {
@@ -31,11 +35,20 @@ const socketController = async (socket = new Socket(), io) => {
 
     // 3- Escuchando el evento enviar-msj
     socket.on('enviar-mensaje', ({ uid, msj }) => {
-        //console.log(msj)
-        //console.log(user.id, user.name, msj)
-        chatMsjs.sendMsg(user.id, user.name, msj)
-        console.log(chatMsjs.last10)
-        io.emit('recibir-mensajes', chatMsjs.last10)
+
+        if (uid) {
+            // Esto significa que es un msj privado
+            socket.to(uid).emit('mensaje-privado', { de: user.name, msj })
+
+        } else {
+
+            //console.log(msj)
+            //console.log(user.id, user.name, msj)
+            chatMsjs.sendMsg(user.id, user.name, msj)
+            console.log(chatMsjs.last10)
+            io.emit('recibir-mensajes', chatMsjs.last10)
+        }
+
     })
 
 }
