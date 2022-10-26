@@ -69,17 +69,17 @@ const socketConect = async () => {
 
     // ESCUCHAS NECESARIAS
     // Recibir mensajes
-    socket.on('recibir-mensajes', ()=>{
-        //TODO:
-    })
-    
-    // Escuchar usarios activos, cuando se conectan
-    socket.on('usuarios-activos', ()=>{
+    socket.on('recibir-mensajes', () => {
         //TODO:
     })
 
+    // Escuchar usarios activos, cuando se conectan
+    socket.on('usuarios-activos', (payload) => {
+        console.log(payload)
+    })
+
     // Recibir mensajes privados
-    socket.on('mensaje-privado', ()=>{
+    socket.on('mensaje-privado', () => {
         //TODO:
     })
 }
