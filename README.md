@@ -7,39 +7,19 @@
 
 *1-```npm install``` (to install dependencies)*
 
-*2-Create your own .env file with the MONGOBD key.*
+*2-Create your own .env file.*
 
 *3-```node app.js``` (to start the application)*
 
 ## *Some characteristics*
-*API REST CRUD model with the best practices, to be used and build a robust server in a fast way.*
+*Chat app with user login, google identity or backend, global room or private room (only logic).*
 
 *Particularly:*
-* RESTServer scopes.
-* CRUD.
-* BCRYPTJS (to encrypt passwords in one direction).
-* Express Validator (for route validations using chek).
-* Mongoose.
-* Express.
-* Connection with MLAB.
-* Cloud DB deployment.
-* Connection with ROBO 3T in the cloud.
-* Setting environment variables.
-* Deleting files: a- Physically deleted from the DB. b- Elimination by state in a field of the collection.
-
-* JWT.
-* CUSTOM LOGIN.
-* Rutes protect whit TOKEN.
-* Read token payload whitout the signature.
-* Custom Middleware.
-
-* API Key Google.
-* API Secret.
-* Librarys from GOOGLE for tokens validations.
-* Google FrontEnd SIGNIN and SIGNOUT.
-* Customs users create from GoogleAccounts. 
-
-* Cloudinary
-* Cloudinary SDK
+* authenticate sockets
+* use JWT to validate sockets
+* Login Front End
+* Implement and use GoogleSignIn (identity) created
+* Send private messages
+* Send global messages
 
 ### *Thanks for stopping by here!*
