@@ -4,7 +4,7 @@ const myForm = document.querySelector('form')
 
 const url = (window.location.hostname.includes('localhost'))
     ? 'http://localhost:6060/api/auth/'
-    : 'https://restserver-n0d3js.herokuapp.com/api/auth/'
+    : 'https://node-s0cket-chat.herokuapp.com/api/auth/'
 
 
 // Le agregamos el listener al form
@@ -44,6 +44,9 @@ function handleCredentialResponse(response) {
     const body = { id_token: response.credential }
 
     // Por defecto el fetch es una peticion GET, nosotros esamos la peticion POST para el sigIn, por lo que hay que transformar esto.
+
+    //fetch(url + 'google',
+
     fetch(url + 'google', {
         method: 'POST',
         headers: {
